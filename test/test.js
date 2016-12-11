@@ -1,55 +1,30 @@
-var ObjectPool = require('../lib/objectpool').default;
-
+var Component = require('../src/component');
 var assert = require('assert');
 
 describe('ObjectPool', () => {
-  var pool;
-  var allocateWithNumberPool;
+  var first;
+  var second;
+  class Cat extends Component {
+    constructor(name, description) {
+      super(name, description);
+    }
+  }
 
   beforeEach(() => {
-    pool = new ObjectPool();
-    allocateWithNumberPool = new ObjectPool(5);
+    first = new Cat('cat', 'bob');
+    second = new Cat('cat', 'stanley');
   });
 
   afterEach(() => {
-    pool = null;
-    allocateWithNumberPool = null;
+    first = null;
+    second = null;
   });
 
   describe('instantiation', () => {
 
-    it('should allocate the number of objects it is told or zero', () => {
-      assert.equal(allocateWithNumberPool.status.totalAllocated, 5);
-      assert.equal(allocateWithNumberPool.status.totalFree, 5);
-    });
-
-  });
-
-  describe('methods', () => {
-
-    it('adds an allocated item to its status when allocating without any available objects', () => {
-      var item = pool.alloc();
-      assert.equal(pool.status.totalAllocated, 1);
-      assert.equal(pool.status.totalFree, 0);
-    });
-
-    it('uses an existing object if available', () => {
-      allocateWithNumberPool.alloc();
-      assert.equal(allocateWithNumberPool.status.totalAllocated, 5);
-      assert.equal(allocateWithNumberPool.status.totalFree, 4);
-    });
-
-    it('frees an object when calling free', () => {
-      var object = allocateWithNumberPool.alloc();
-      assert.equal(allocateWithNumberPool.status.totalFree, 4);
-      allocateWithNumberPool.free(object);
-      assert.equal(allocateWithNumberPool.status.totalFree, 5);
-    });
-
-    it('clears all unallocated objects when calling collect', () => {
-      var object = allocateWithNumberPool.alloc();
-      allocateWithNumberPool.collect();
-      assert.equal(allocateWithNumberPool.status.totalAllocated, 1);
+    it('should add current components to the list', () => {
+      assert.isOk(Component.stored['cat'][0]);
+      assert.isOk(Component.stored['cat'][1]);
     });
 
   });

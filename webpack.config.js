@@ -18,7 +18,7 @@ if (env === 'build') {
 }
 
 var config = {
-  entry: './src/objectpool',
+  entry: './src/component',
   // devtool: 'source-map',
   output: {
     path: __dirname + '/lib',
