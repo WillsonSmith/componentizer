@@ -16,6 +16,8 @@ class Component {
 
         return propList;
       }, {});
+
+      Object.keys(this.props).forEach((prop) => this.update(prop, this.props[prop].value));
     }
 
     if (currentComponents.includes(name)) {
@@ -30,6 +32,9 @@ class Component {
   }
 
   update(prop, value) {
+    if (!value) {
+      return;
+    }
     this.props[prop].value = value;
     this.props[prop].dependents.forEach((dependent) => {
       dependent.textContent = this.props[prop].value;

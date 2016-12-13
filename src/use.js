@@ -10,7 +10,11 @@ class Cat extends Component {
   }
 }
 
-const cat = new Cat(document.getElementById('cat'), 'cat', ['age', 'color']);
+const cats = Array.from(document.getElementsByClassName('cat'));
 
-cat.update('age', 7);
-window.cat = cat;
+const catClasses = cats.map((cat) => new Cat(cat, 'cat', ['age', 'color']));
+window.catClasses = catClasses;
+// const cat = new Cat(document.getElementById('cat'), 'cat', ['age', 'color']);
+
+// cat.update('age', 7);
+// window.cat = cat;
