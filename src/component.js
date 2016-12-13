@@ -3,8 +3,9 @@ const storedComponents = {};
 class Component {
   constructor(node, name, props) {
     const currentComponents = Object.keys(storedComponents);
-    this.props = {};
+    this.node = node;
     this.name = name;
+    this.props = {};
     this.id = currentComponents.length;
 
     if (props) {
@@ -37,8 +38,9 @@ class Component {
     }
     this.props[prop].value = value;
     this.props[prop].dependents.forEach((dependent) => {
-      dependent.textContent = this.props[prop].value;
+      dependent.textContent = value;
     });
+    this.node.setAttribute(`data-prop-${prop}`, value);
     // modify this to use requestAnimationFrame for batching
     // what about on non-tag elements, what if want on a button etc
       // thinking some data attribute
