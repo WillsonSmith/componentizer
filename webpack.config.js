@@ -18,8 +18,8 @@ if (env === 'build') {
 }
 
 var config = {
-  entry: './src/component',
-  // devtool: 'source-map',
+  entry: './src/use',
+  devtool: 'source-map',
   output: {
     path: __dirname + '/lib',
     filename: outputFile,
