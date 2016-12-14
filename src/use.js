@@ -20,8 +20,8 @@ cats.forEach((cat) => {
 });
 
 class Ticker extends Component {
-  constructor(node, name, props) {
-    super(node, name, props);
+  constructor(node, props) {
+    super(node, 'ticker', props);
     this.tick = this.tick.bind(this);
     setInterval(this.tick, 1000);
   }
@@ -35,4 +35,4 @@ class Ticker extends Component {
 
 const tickerElement = document.getElementById('ticker');
 
-const ticker = new Ticker(tickerElement, 'ticker', ['ticks']);
+const ticker = new Ticker(tickerElement, ['ticks']);
