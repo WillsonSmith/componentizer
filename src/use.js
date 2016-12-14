@@ -1,5 +1,7 @@
 import Component from './component';
 
+window.Component = Component;
+
 class Cat extends Component {
   constructor(node, name, props) {
     super(node, name, props);

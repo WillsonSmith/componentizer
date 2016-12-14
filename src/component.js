@@ -46,7 +46,7 @@ class Component {
         dependent.dispatchEvent(changeEvent);
       });
     });
-
+    this.node.dispatchEvent(changeEvent);
     return this.props[prop].dependents;
   }
 
