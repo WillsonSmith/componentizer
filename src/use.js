@@ -27,8 +27,8 @@ class Ticker extends Component {
   }
 
   tick() {
-    const tick = Number(this.props.ticks.value)
-    this.update('ticks', tick + 1);
+    const tick = Number(this.props.ticks.value) + 1;
+    this.update('ticks', tick);
   }
 }
 
