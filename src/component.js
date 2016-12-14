@@ -1,4 +1,5 @@
 const storedComponents = {};
+const changeEvent = new Event('changed');
 
 class Component {
   constructor(node, name, props) {
@@ -34,23 +35,25 @@ class Component {
 
   update(prop, value) {
     if (!value) {
-      return;
+      return [];
     }
+
     this.props[prop].value = value;
-    this.props[prop].dependents.forEach((dependent) => {
-      dependent.textContent = value;
+    window.requestAnimationFrame(() => {
+      this.node.setAttribute(`data-prop-${prop}`, value);
+      this.props[prop].dependents.forEach((dependent) => {
+        dependent.textContent = value;
+        dependent.dispatchEvent(changeEvent);
+      });
     });
-    this.node.setAttribute(`data-prop-${prop}`, value);
-    // modify this to use requestAnimationFrame for batching
-    // what about on non-tag elements, what if want on a button etc
-      // thinking some data attribute
+
+    return this.props[prop].dependents;
   }
 
   static destroy(component) {
     const {name, id} = component;
     storedComponents[name][id] = null;
     delete storedComponents[name][id];
-    component = null;
   }
 
   static stored() {
